@@ -24,13 +24,18 @@ public class ProductRestController {
     @Autowired
     private ProductRepository productRepository;
 
+    @GetMapping
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
     @Autowired
     private CategoryRepository categoryRepository;
 
     @PostMapping
     @PreAuthorize("hasAnyRole('SUPER_ADMIN_ROL')")
     public Product addProduct(@RequestBody Product product) {
-        Optional<Category> optionalCategory = categoryRepository.findById(1L);
+        Optional<Category> optionalCategory = categoryRepository.findById(product.getCategory().getId());
 
         if (optionalCategory.isEmpty()) {
 

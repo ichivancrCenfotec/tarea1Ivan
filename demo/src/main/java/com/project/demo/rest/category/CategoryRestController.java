@@ -19,6 +19,11 @@ public class CategoryRestController {
     private CategoryRepository categoryRepository;
 
 
+    @GetMapping
+    public Iterable<Category> getAllCategories() {
+        return categoryRepository.findAll();
+    }
+
 
     @PostMapping
     @PreAuthorize("hasAnyRole('SUPER_ADMIN_ROL')")
